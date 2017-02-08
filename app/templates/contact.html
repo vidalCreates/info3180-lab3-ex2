@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h1>Contact Form</h1>
+    <hr/>
+    <p>Fill in the form to contact the site owner</p>
+    <br/>
+    <br/>
+
+    <form action="{{ url_for('contact') }}" method="post">
+        <div>
+            <label for="name">Name <span style="color:red;">[Required]</span></label>
+            <p>Please enter your full name</p>
+            <input type="text" id="name" name="name" required/>
+        </div>
+        <br/>
+        <div>
+            <label for="email">E-mail <span style="color:red;">[Required]</span></label>
+            <p>Please enter your email address</p>
+            <input type="email" id="email" name="email" required/>
+        </div>
+        <br/>
+        <div>
+            <label for="subject">Subject <span style="color:red;">[Required]</span></label>
+            <p>Please enter the subject for your message</p>
+            <input type="text" id="subject" name="subject" required/>
+        </div>
+        <br/>
+        <div>
+            <label for="msg">Subject <span style="color:red;">[Required]</span></label>
+            <p>Please enter the message you would like to send</p>
+            <textarea id="msg" name="msg" required></textarea>
+        </div>
+        <br/>
+        <button class="btn btn-lg btn-default" style="background-color: dodgerblue;color:white;"type="submit">Send</button>
+    </form>
+{% endblock %}

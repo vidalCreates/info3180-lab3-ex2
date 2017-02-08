@@ -6,7 +6,8 @@ This file creates your application.
 """
 
 from app import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
+
 
 
 ###
@@ -28,6 +29,38 @@ def about():
 ###
 # The functions below should be applicable to all Flask apps.
 ###
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        send_email(request.form['name'], request.form['email'], request.form['subject'], request.form['msg'])
+        flash("Message sent")
+        return redirect(url_for('home'))
+    return render_template('contact.html')
+
+def send_email(from_name, from_addr, subject, msg):
+    if request.method=='POST':
+        import smtplib
+
+        to_addr  = 'amc12vidal@gmail.com'
+        to_name = 'Andre'
+        message = """
+        From: {} <{}>
+        To: {} <{}>
+        Subject: {}
+        {}
+        """
+        message_to_send = message.format(from_name, from_addr, to_name, to_addr, subject, msg)
+        # Credentials (if needed)
+        username = 'example@gmail.com'
+        password = 'notthepassword'
+
+        # The actual mail send
+        server = smtplib.SMTP('smtp.gmail.com:587')
+        server.starttls()
+        server.login(username, password)
+        server.sendmail(from_addr, to_addr, message_to_send)
+        server.quit()
+
 
 @app.route('/<file_name>.txt')
 def send_text_file(file_name):
