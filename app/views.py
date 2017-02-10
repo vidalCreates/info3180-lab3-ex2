@@ -38,28 +38,27 @@ def contact():
     return render_template('contact.html')
 
 def send_email(from_name, from_addr, subject, msg):
-    if request.method=='POST':
-        import smtplib
+    import smtplib
 
-        to_addr  = 'amc12vidal@gmail.com'
-        to_name = 'Andre'
-        message = """
-        From: {} <{}>
-        To: {} <{}>
-        Subject: {}
-        {}
-        """
-        message_to_send = message.format(from_name, from_addr, to_name, to_addr, subject, msg)
-        # Credentials (if needed)
-        username = 'example@gmail.com'
-        password = 'notthepassword'
+    to_addr  = 'amc12vidal@gmail.com'
+    to_name = 'Andre'
+    message = """
+    From: {} <{}>
+    To: {} <{}>
+    Subject: {}
+    {}
+    """
+    message_to_send = message.format(from_name, from_addr, to_name, to_addr, subject, msg)
+    # Credentials (if needed)
+    username = 'nottheusername'
+    password = 'password'
 
-        # The actual mail send
-        server = smtplib.SMTP('smtp.gmail.com:587')
-        server.starttls()
-        server.login(username, password)
-        server.sendmail(from_addr, to_addr, message_to_send)
-        server.quit()
+    # The actual mail send
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.starttls()
+    server.login(username, password)
+    server.sendmail(from_addr, to_addr, message_to_send)
+    server.quit()
 
 
 @app.route('/<file_name>.txt')
